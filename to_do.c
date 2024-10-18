@@ -5,7 +5,7 @@
 struct task
 {
     char task_about[100];
-    struct *task next;
+    struct task* next;
 };
 
 struct category
@@ -15,7 +15,7 @@ struct category
     struct category* next;
 };
 
-struct *task create_task(const char* task_about)
+struct task* create_task(const char* task_about)
 {
     struct task* newnode = malloc(sizeof(struct task));
     strcpy(newnode->task_about, task_about);
@@ -87,6 +87,7 @@ int count_task(struct category* head)
             count++;
             task_node = task_node->next;
         }
+        node1 = node1->next;
     }
     return count;
 }
@@ -129,6 +130,7 @@ int main()
         switch(choice)
         {
             case 1:
+            {
                 char name_category[100];
                 printf("Enter the name of the category: ");
                 scanf("%s", name_category);
@@ -136,8 +138,10 @@ int main()
                 new_category->next = categories;
                 categories = new_category;
                 break;
+            }
 
             case 2:
+            {
                 char category_name[100];
                 char task_about[100];
                 printf("Enter the name of the category: ");
@@ -155,8 +159,10 @@ int main()
                     printf("Category is not found. Create a category by entering 1. \n");
                 }
                 break;
+            }
 
             case 3:
+            {
                 char category_name[100];
                 char task_about[100];
                 printf("Enter the name of the category: ");
@@ -174,15 +180,18 @@ int main()
                     printf("Sorry! The category is not found. \n");
                 }
                 break;
-            
+            }
+
             case 4:
+            {
                 display_task_by_category(categories);
                 break;
-
+            }
             case 5:
+            {
                 printf("Total number of tasks: %d\n", count_task(categories));
                 break;
-
+            }
             case 6:
                 break;
 
@@ -190,5 +199,4 @@ int main()
                 printf("Invalid choice, please try again\n");
         }
     } while(choice != 6);
-    return 0;
 }
