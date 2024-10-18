@@ -110,5 +110,85 @@ void display_task_by_category(struct category* head)
 
 int main()
 {
-    
+   struct category* categories = NULL;
+   int choice;
+
+   do
+   {
+        printf("\nWelcome TO-DO LIST\n");
+        printf("\n");
+        printf("1. Add category\n");
+        printf("2. Add task\n");
+        printf("3. Delete task\n");
+        printf("4. Display category by task\n");
+        printf("5. Count of all tasks\n");
+        printf("6. Exit\n");
+        printf("Get started now: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                char name_category[100];
+                printf("Enter the name of the category: ");
+                scanf("%s", name_category);
+                struct category* new_category = create_category(name_category);
+                new_category->next = categories;
+                categories = new_category;
+                break;
+
+            case 2:
+                char category_name[100];
+                char task_about[100];
+                printf("Enter the name of the category: ");
+                scanf("%s", category_name);
+                printf("Enter the task: ");
+                scanf("%s", task_about);
+
+                struct category* node1 = find_category(categories, category_name);
+                if(node1 != NULL)
+                {
+                    add_task(node1, task_about);
+                }
+                else
+                {
+                    printf("Category is not found. Create a category by entering 1. \n");
+                }
+                break;
+
+            case 3:
+                char category_name[100];
+                char task_about[100];
+                printf("Enter the name of the category: ");
+                scanf("%s", category_name);
+                printf("Enter the task you want ot delete: ");
+                scanf("%s", task_about);
+
+                struct category* node1 = find_category(categories, category_name);
+                if(node1 != NULL)
+                {
+                    delete_task(node1, task_about);
+                }
+                else
+                {
+                    printf("Sorry! The category is not found. \n");
+                }
+                break;
+            
+            case 4:
+                display_task_by_category(categories);
+                break;
+
+            case 5:
+                printf("Total number of tasks: %d\n", count_task(categories));
+                break;
+
+            case 6:
+                break;
+
+            default:
+                printf("Invalid choice, please try again\n");
+        }
+    } while(choice != 6);
+    return 0;
 }
